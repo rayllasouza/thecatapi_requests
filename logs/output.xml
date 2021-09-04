@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1 (Python 3.9.6 on win32)" generated="20210903 17:28:29.748" rpa="false" schemaversion="2">
+<suite id="s1" name="Votes Tests" source="C:\Users\raylla.souza\Desktop\thecatapi\tests\votes_tests.robot">
+<test id="s1-t1" name="Cenário: Delete a vote">
+<kw name="Create a new vote" library="votes_actions">
+<kw name="Post create a vote" library="votes_actions">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>thecatapi</arg>
+<arg>${BASE_URI}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210903 17:28:30.022" level="INFO">Creating Session using : alias=thecatapi, url=https://api.thecatapi.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210903 17:28:30.022" endtime="20210903 17:28:30.022"/>
+</kw>
+<kw name="Word" library="FakerLibrary">
+<var>${image_id}</var>
+<doc>Generate a word.</doc>
+<msg timestamp="20210903 17:28:30.022" level="INFO">${image_id} = agreement</msg>
+<status status="PASS" starttime="20210903 17:28:30.022" endtime="20210903 17:28:30.022"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>NOME DA IMAGEM: ${image_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:30.022" endtime="20210903 17:28:30.022"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>image_id=${image_id}</arg>
+<arg>value=1</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20210903 17:28:30.023" level="INFO">${body} = {'image_id': 'agreement', 'value': '1'}</msg>
+<status status="PASS" starttime="20210903 17:28:30.023" endtime="20210903 17:28:30.023"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${api_key}</var>
+<arg>x-api-key=30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20210903 17:28:30.023" level="INFO">${api_key} = {'x-api-key': '30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4'}</msg>
+<status status="PASS" starttime="20210903 17:28:30.023" endtime="20210903 17:28:30.023"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>thecatapi</arg>
+<arg>/votes</arg>
+<arg>json=${body}</arg>
+<arg>headers=${api_key}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20210903 17:28:30.737" level="INFO">POST Request : url=https://api.thecatapi.com/v1/votes 
+ path_url=/v1/votes 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'x-api-key': '30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4', 'Content-Length': '39', 'Content-Type': 'application/json'} 
+ body=b'{"image_id": "agreement", "value": "1"}' 
+ </msg>
+<msg timestamp="20210903 17:28:30.737" level="INFO">POST Response : url=https://api.thecatapi.com/v1/votes 
+ status=200, reason=OK 
+ headers={'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'vary': 'Origin', 'content-type': 'application/json; charset=utf-8', 'x-response-time': '143ms', 'X-Cloud-Trace-Context': '16ebb4fa46e10c97669774d182bbffc8', 'Date': 'Fri, 03 Sep 2021 20:28:33 GMT', 'Server': 'Google Frontend', 'Content-Length': '33'} 
+ body={"message":"SUCCESS","id":323210} 
+ </msg>
+<msg timestamp="20210903 17:28:30.738" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210903 17:28:30.023" endtime="20210903 17:28:30.738"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Response: ${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:30.738" endtime="20210903 17:28:30.739"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210903 17:28:30.740" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210903 17:28:30.739" endtime="20210903 17:28:30.740"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:30.021" endtime="20210903 17:28:30.740"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${vote_id}</var>
+<arg>${response.json()["id"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20210903 17:28:30.742" level="INFO">${vote_id} = 323210</msg>
+<status status="PASS" starttime="20210903 17:28:30.740" endtime="20210903 17:28:30.742"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>ID DO NOVO VOTO CRIADO: ${vote_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:30.742" endtime="20210903 17:28:30.742"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${vote_id}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210903 17:28:30.742" level="INFO">${vote_id} = 323210</msg>
+<status status="PASS" starttime="20210903 17:28:30.742" endtime="20210903 17:28:30.742"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:30.021" endtime="20210903 17:28:30.742"/>
+</kw>
+<kw name="Delete a vote" library="votes_actions">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>thecatapi</arg>
+<arg>${BASE_URI}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210903 17:28:30.742" level="INFO">Creating Session using : alias=thecatapi, url=https://api.thecatapi.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210903 17:28:30.742" endtime="20210903 17:28:30.743"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${api_key}</var>
+<arg>x-api-key=30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20210903 17:28:30.743" level="INFO">${api_key} = {'x-api-key': '30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4'}</msg>
+<status status="PASS" starttime="20210903 17:28:30.743" endtime="20210903 17:28:30.743"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>API KEY:${api_key}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:30.743" endtime="20210903 17:28:30.743"/>
+</kw>
+<kw name="Delete On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>thecatapi</arg>
+<arg>/votes/${vote_id}</arg>
+<arg>headers=${api_key}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20210903 17:28:31.281" level="INFO">DELETE Request : url=https://api.thecatapi.com/v1/votes/323210 
+ path_url=/v1/votes/323210 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'x-api-key': '30f6bf6d-8abf-4fa9-a32b-2c6d9e2033f4', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20210903 17:28:31.281" level="INFO">DELETE Response : url=https://api.thecatapi.com/v1/votes/323210 
+ status=200, reason=OK 
+ headers={'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'vary': 'Origin', 'content-type': 'application/json; charset=utf-8', 'x-response-time': '126ms', 'X-Cloud-Trace-Context': 'aa9b78b8b3ddff759757ad207866b6fe', 'Date': 'Fri, 03 Sep 2021 20:28:34 GMT', 'Server': 'Google Frontend', 'Content-Length': '21'} 
+ body={"message":"SUCCESS"} 
+ </msg>
+<msg timestamp="20210903 17:28:31.281" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210903 17:28:30.743" endtime="20210903 17:28:31.281"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>VOTO EXCLUIDO Response: ${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:31.281" endtime="20210903 17:28:31.283"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210903 17:28:31.284" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210903 17:28:31.283" endtime="20210903 17:28:31.284"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:30.742" endtime="20210903 17:28:31.284"/>
+</kw>
+<kw name="Validade status code &quot;200&quot;" library="votes_actions" sourcename="Validade status code &quot;${status}&quot;">
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20210903 17:28:31.285" endtime="20210903 17:28:31.285"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:31.284" endtime="20210903 17:28:31.285"/>
+</kw>
+<kw name="Validate message &quot;SUCCESS&quot;" library="votes_actions" sourcename="Validate message &quot;${message}&quot;">
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()["message"]}</arg>
+<arg>${message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210903 17:28:31.286" endtime="20210903 17:28:31.286"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.json()["message"]}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210903 17:28:31.286" endtime="20210903 17:28:31.286"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:31.285" endtime="20210903 17:28:31.286"/>
+</kw>
+<status status="PASS" starttime="20210903 17:28:30.021" endtime="20210903 17:28:31.287"/>
+</test>
+<status status="PASS" starttime="20210903 17:28:29.749" endtime="20210903 17:28:31.287"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Votes Tests">Votes Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
